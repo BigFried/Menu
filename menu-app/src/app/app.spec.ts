@@ -17,7 +17,10 @@ describe('App', () => {
   it('should render title', async () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
+    fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, menu-app');
+    expect(compiled.querySelector('.sidebar-toggle')).toBeTruthy();
+    expect(compiled.querySelector('h1')?.textContent).toContain('BIG FRIED MENU');
+    expect(compiled.querySelectorAll('.menu-section').length).toBe(8);
   });
 });

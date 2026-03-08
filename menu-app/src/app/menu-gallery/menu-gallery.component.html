@@ -1,0 +1,86 @@
+<div class="menu-gallery">
+  <button type="button" class="sidebar-toggle" (click)="toggleSidebar()">Sections</button>
+
+  <header class="hero">
+    <img class="hero-cover" src="assets/menu-pages/01.png" alt="BIG Fried Menu cover" />
+    <div class="hero-content">
+      <h1>BIG FRIED MENU</h1>
+      <p>Browse our full menu</p>
+      <div class="hero-actions">
+        <button type="button" class="btn btn-main" (click)="scrollToMenu()">View Menu</button>
+        <a class="btn btn-link" [href]="contact.call">Call</a>
+        <a
+          class="btn btn-link icon-only"
+          [href]="contact.facebook"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Facebook page"
+          title="Facebook page">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M13.5 22v-8h2.7l.4-3h-3.1V9.2c0-.9.3-1.5 1.6-1.5h1.7V5c-.3 0-1.4-.1-2.6-.1-2.6 0-4.3 1.6-4.3 4.4V11H7v3h2.9v8h3.6z" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="sidebar-backdrop" *ngIf="isSidebarOpen" (click)="closeSidebar()"></div>
+  <aside class="sidebar" [class.open]="isSidebarOpen" aria-label="Menu sections">
+    <div class="sidebar-head">
+      <h3>Menu Sections</h3>
+      <button type="button" class="close-sidebar" (click)="closeSidebar()">&times;</button>
+    </div>
+    <button
+      type="button"
+      class="sidebar-link"
+      *ngFor="let section of sections"
+      (click)="onSectionClick(section.id)">
+      {{ section.navLabel }}
+    </button>
+  </aside>
+
+  <main class="menu-sections">
+    <section class="menu-section" *ngFor="let section of sections" [id]="section.id">
+      <h2>{{ section.title }}</h2>
+      <button type="button" class="image-trigger" (click)="openImage(section)">
+        <img [src]="section.image" [alt]="section.alt" loading="lazy" decoding="async" />
+      </button>
+    </section>
+  </main>
+
+  <div
+    class="image-modal-backdrop"
+    *ngIf="selectedImage as activeImage"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="activeImage.title + ' preview'"
+    (click)="onBackdropClick($event)">
+    <div class="image-modal">
+      <button type="button" class="close-btn" aria-label="Close preview" (click)="closeModal()">
+        &times;
+      </button>
+      <img [src]="activeImage.image" [alt]="activeImage.alt" />
+    </div>
+  </div>
+
+  <div class="floating-actions">
+    <a [href]="contact.call">Call</a>
+    <a
+      class="icon-only"
+      [href]="contact.facebook"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Facebook page"
+      title="Facebook page">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M13.5 22v-8h2.7l.4-3h-3.1V9.2c0-.9.3-1.5 1.6-1.5h1.7V5c-.3 0-1.4-.1-2.6-.1-2.6 0-4.3 1.6-4.3 4.4V11H7v3h2.9v8h3.6z" />
+      </svg>
+    </a>
+  </div>
+
+  <footer class="site-footer">
+    <p>العنوان: {{ contact.address }}</p>
+  </footer>
+</div>
